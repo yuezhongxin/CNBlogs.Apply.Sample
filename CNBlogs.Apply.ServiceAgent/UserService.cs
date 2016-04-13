@@ -13,8 +13,6 @@ namespace CNBlogs.Apply.ServiceAgent
 {
     public class UserService
     {
-        private static string userHost = "";
-
         public static async Task<int> GetUserIdByDisplayName(string displayName)
         {
             return 1;

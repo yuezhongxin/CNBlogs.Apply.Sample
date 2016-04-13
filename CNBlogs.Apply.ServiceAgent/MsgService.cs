@@ -12,25 +12,9 @@ namespace CNBlogs.Apply.ServiceAgent
 {
     public class MsgService
     {
-        private static string _msgHost = "http://service.msg.cnblogs.com";
-        private static bool _isNotify = true;
-
         public static async Task Send(string title, string body, int recipientId)
         {
-            if (_isNotify)
-            {
-                using (var client = new HttpClient())
-                {
-                    HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(new
-                    {
-                        Title = title,
-                        Content = body,
-                        RecipientId = recipientId,
-                    }));
-                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    await client.PostAsync(_msgHost + "/api/notifications", httpContent);
-                }
-            }
+            
         }
     }
 }
