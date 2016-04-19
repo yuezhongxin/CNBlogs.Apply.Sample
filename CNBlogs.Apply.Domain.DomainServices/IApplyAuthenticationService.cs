@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CNBlogs.Apply.Domain.DomainServices
 {
-    public interface IUserAuthenticationService
+    public interface IApplyAuthenticationService
     {
         Task<string> Verfiy(int userId);
     }

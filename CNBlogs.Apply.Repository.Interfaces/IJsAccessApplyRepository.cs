@@ -9,6 +9,8 @@ namespace CNBlogs.Apply.Repository.Interfaces
 {
     public interface IJsPermissionApplyRepository : IRepository<JsPermissionApply>
     {
-        IQueryable<JsPermissionApply> GetByUserId(int userId);
+        IQueryable<JsPermissionApply> GetInvalid(int userId);
+
+        IQueryable<JsPermissionApply> GetWaiting(int userId);
     }
 }

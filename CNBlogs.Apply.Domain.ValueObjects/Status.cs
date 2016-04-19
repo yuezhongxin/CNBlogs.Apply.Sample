@@ -8,14 +8,24 @@ namespace CNBlogs.Apply.Domain.ValueObjects
 {
     public enum Status
     {
-        NoApply = 0,
-
+        /// <summary>
+        /// 等待
+        /// </summary>
         Wait = 1,
 
+        /// <summary>
+        /// 通过
+        /// </summary>
         Pass = 2,
 
+        /// <summary>
+        /// 拒绝
+        /// </summary>
         Deny = 3,
 
+        /// <summary>
+        /// 锁定
+        /// </summary>
         Lock = 4,
     }
 }

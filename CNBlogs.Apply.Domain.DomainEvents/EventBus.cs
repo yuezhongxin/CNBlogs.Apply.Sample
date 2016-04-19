@@ -10,11 +10,11 @@ namespace CNBlogs.Apply.Domain.DomainEvents
 {
     public class EventBus : IEventBus
     {
-        public void Publish<TEvent>(TEvent @event)
+        public async Task Publish<TEvent>(TEvent @event)
             where TEvent : IEvent
         {
             var eventHandler = IocContainer.Default.Resolve<IEventHandler<TEvent>>();
-            eventHandler.Handle(@event);
+            await eventHandler.Handle(@event);
         }
     }
 }

@@ -54,6 +54,10 @@
     <Compile Include="JsAccessApplyRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CNBlogs.Apply.Domain.ValueObjects\CNBlogs.Apply.Domain.ValueObjects.csproj">
+      <Project>{F3118A87-6041-4454-82CA-372309B5EAFA}</Project>
+      <Name>CNBlogs.Apply.Domain.ValueObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Domain\CNBlogs.Apply.Domain.csproj">
       <Project>{ffccaba9-b5b9-454a-899a-eb84f65b06ba}</Project>
       <Name>CNBlogs.Apply.Domain</Name>

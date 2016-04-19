@@ -8,7 +8,7 @@ namespace CNBlogs.Apply.Domain.DomainEvents
 {
     public interface IEventBus
     {
-        void Publish<TEvent>(TEvent @event)
+        Task Publish<TEvent>(TEvent @event)
             where TEvent : IEvent;
     }
 }

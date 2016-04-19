@@ -12,7 +12,7 @@ namespace CNBlogs.Apply.Domain.DomainEvents
     {
         public async Task Handle(MessageSentEvent @event)
         {
-            //await MsgService.Send(@event.Title, @event.Content, @event.RecipientId);
+            await MsgService.Send(@event.Title, @event.Content, @event.RecipientId);
         }
     }
 }

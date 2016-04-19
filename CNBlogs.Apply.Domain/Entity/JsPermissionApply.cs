@@ -1,5 +1,6 @@
 ﻿using CNBlogs.Apply.Domain.DomainEvents;
 using CNBlogs.Apply.Domain.ValueObjects;
+using CNBlogs.Apply.Infrastructure.IoC.Contracts;
 using CNBlogs.Apply.ServiceAgent;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
-using CNBlogs.Apply.Infrastructure.IoC.Contracts;
 
 namespace CNBlogs.Apply.Domain
 {
@@ -57,22 +57,35 @@ namespace CNBlogs.Apply.Domain
 
         public bool IsActive { get; private set; } = true;
 
-        public void Process(string replyContent, Status status)
+        public async Task Pass()
         {
-            this.ReplyContent = replyContent;
-            this.Status = status;
+            this.Status = Status.Pass;
             this.ApprovedTime = DateTime.Now;
+            this.ReplyContent = "恭喜您！您的JS权限申请已通过审批。";
 
             eventBus = IocContainer.Default.Resolve<IEventBus>();
-            if (this.Status == Status.Pass)
-            {
-                eventBus.Publish(new JsPermissionOpenedEvent() { UserId = this.UserId });
-                eventBus.Publish(new MessageSentEvent() { Title = "系统通知", Content = "审核通过", RecipientId = this.UserId });
-            }
-            else if (this.Status == Status.Deny)
-            {
-                eventBus.Publish(new MessageSentEvent() { Title = "系统通知", Content = "审核不通过", RecipientId = this.UserId });
-            }
+            await eventBus.Publish(new JsPermissionOpenedEvent() { UserId = this.UserId });
+            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请已批准", Content = this.ReplyContent, RecipientId = this.UserId });
+        }
+
+        public async Task Deny(string replyContent)
+        {
+            this.Status = Status.Deny;
+            this.ApprovedTime = DateTime.Now;
+            this.ReplyContent = $"抱歉！您的JS权限申请没有被批准，{(string.IsNullOrEmpty(replyContent) ? "" : $"具体原因：{replyContent}<br/>")}麻烦您重新填写申请理由。";
+
+            eventBus = IocContainer.Default.Resolve<IEventBus>();
+            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请未通过审批", Content = this.ReplyContent, RecipientId = this.UserId });
+        }
+
+        public async Task Lock()
+        {
+            this.Status = Status.Lock;
+            this.ApprovedTime = DateTime.Now;
+            this.ReplyContent = "抱歉！您的JS权限申请没有被批准，并且申请已被锁定，具体请联系contact@cnblogs.com。";
+
+            eventBus = IocContainer.Default.Resolve<IEventBus>();
+            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请已被锁定", Content = this.ReplyContent, RecipientId = this.UserId });
         }
     }
 }

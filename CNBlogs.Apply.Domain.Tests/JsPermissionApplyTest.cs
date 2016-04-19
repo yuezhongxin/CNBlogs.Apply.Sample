@@ -16,7 +16,7 @@ namespace CNBlogs.Apply.Domain.Tests
 {
     public class JsPermissionApplyTest
     {
-        private IUserAuthenticationService _userAuthenticationService;
+        private IApplyAuthenticationService _applyAuthenticationService;
         private IJsPermissionApplyRepository _jsPermissionApplyRepository;
         private IUnitOfWork _unitOfWork;
 
@@ -24,16 +24,16 @@ namespace CNBlogs.Apply.Domain.Tests
         {
             CNBlogs.Apply.BootStrapper.Startup.Configure();
 
-            _userAuthenticationService = IocContainer.Default.Resolve<IUserAuthenticationService>();
+            _applyAuthenticationService = IocContainer.Default.Resolve<IApplyAuthenticationService>();
             _jsPermissionApplyRepository = IocContainer.Default.Resolve<IJsPermissionApplyRepository>();
             _unitOfWork = IocContainer.Default.Resolve<IUnitOfWork>();
         }
 
         [Fact]
-        public async Task Apply()
+        public async Task ApplyTest()
         {
             var userId = 1;
-            var verfiyResult = await _userAuthenticationService.Verfiy(userId);
+            var verfiyResult = await _applyAuthenticationService.Verfiy(userId);
             Console.WriteLine(verfiyResult);
             Assert.Empty(verfiyResult);
 
@@ -43,13 +43,37 @@ namespace CNBlogs.Apply.Domain.Tests
         }
 
         [Fact]
-        public async Task ProcessApply()
+        public async Task ProcessApply_WithPassTest()
         {
             var userId = 1;
-            var jsPermissionApply = await _jsPermissionApplyRepository.GetByUserId(userId).FirstOrDefaultAsync();
+            var jsPermissionApply = await _jsPermissionApplyRepository.GetWaiting(userId).FirstOrDefaultAsync();
             Assert.NotNull(jsPermissionApply);
 
-            jsPermissionApply.Process("审核通过", Status.Pass);
+            await jsPermissionApply.Pass();
+            _unitOfWork.RegisterDirty(jsPermissionApply);
+            Assert.True(await _unitOfWork.CommitAsync());
+        }
+
+        [Fact]
+        public async Task ProcessApply_WithDenyTest()
+        {
+            var userId = 1;
+            var jsPermissionApply = await _jsPermissionApplyRepository.GetWaiting(userId).FirstOrDefaultAsync();
+            Assert.NotNull(jsPermissionApply);
+
+            await jsPermissionApply.Deny("理由太简单了。");
+            _unitOfWork.RegisterDirty(jsPermissionApply);
+            Assert.True(await _unitOfWork.CommitAsync());
+        }
+
+        [Fact]
+        public async Task ProcessApply_WithLockTest()
+        {
+            var userId = 1;
+            var jsPermissionApply = await _jsPermissionApplyRepository.GetWaiting(userId).FirstOrDefaultAsync();
+            Assert.NotNull(jsPermissionApply);
+
+            await jsPermissionApply.Lock();
             _unitOfWork.RegisterDirty(jsPermissionApply);
             Assert.True(await _unitOfWork.CommitAsync());
         }

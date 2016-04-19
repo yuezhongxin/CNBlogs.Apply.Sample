@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace CNBlogs.Apply.Domain.DomainServices
 {
-    public class UserAuthenticationService : IUserAuthenticationService
+    public class ApplyAuthenticationService : IApplyAuthenticationService
     {
         private IJsPermissionApplyRepository _jsPermissionApplyRepository;
 
-        public UserAuthenticationService(IJsPermissionApplyRepository jsPermissionApplyRepository)
+        public ApplyAuthenticationService(IJsPermissionApplyRepository jsPermissionApplyRepository)
         {
             _jsPermissionApplyRepository = jsPermissionApplyRepository;
         }
@@ -25,10 +25,14 @@ namespace CNBlogs.Apply.Domain.DomainServices
             {
                 return "必须先开通博客，才能申请JS权限";
             }
-            var entity = await _jsPermissionApplyRepository.GetByUserId(userId).FirstOrDefaultAsync();
+            var entity = await _jsPermissionApplyRepository.GetInvalid(userId).FirstOrDefaultAsync();
             if (entity != null)
             {
                 if (entity.Status == Status.Pass)
+                {
+                    return "您的JS权限申请已开通，请勿重复申请";
+                }
+                if (entity.Status == Status.Wait)
                 {
                     return "您的JS权限申请正在处理中，请稍后";
                 }

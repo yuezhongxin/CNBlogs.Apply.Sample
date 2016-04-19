@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CNBlogs.Apply.Domain;
+using CNBlogs.Apply.Domain.ValueObjects;
 
 namespace CNBlogs.Apply.Repository
 {
@@ -15,9 +16,14 @@ namespace CNBlogs.Apply.Repository
             : base(dbContext)
         { }
 
-        public IQueryable<JsPermissionApply> GetByUserId(int userId)
+        public IQueryable<JsPermissionApply> GetInvalid(int userId)
         {
-            return _entities.Where(x => x.UserId == userId);
+            return _entities.Where(x => x.UserId == userId && x.Status != Status.Deny && x.IsActive);
+        }
+
+        public IQueryable<JsPermissionApply> GetWaiting(int userId)
+        {
+            return _entities.Where(x => x.UserId == userId && x.Status == Status.Wait && x.IsActive);
         }
     }
 }

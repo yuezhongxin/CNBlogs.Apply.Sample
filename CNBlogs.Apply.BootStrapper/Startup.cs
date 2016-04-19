@@ -30,7 +30,7 @@ namespace CNBlogs.Apply.BootStrapper
             container.RegisterType<IEventHandler<MessageSentEvent>, MessageSentEventHandler>();
             container.RegisterType<IEventHandler<JsPermissionOpenedEvent>, JsPermissionOpenedEventHandler>();
 
-            container.RegisterType<IUserAuthenticationService, UserAuthenticationService>();
+            container.RegisterType<IApplyAuthenticationService, ApplyAuthenticationService>();
         }
     }
 }
