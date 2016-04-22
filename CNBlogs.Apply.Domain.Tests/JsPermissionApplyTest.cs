@@ -49,9 +49,10 @@ namespace CNBlogs.Apply.Domain.Tests
             var jsPermissionApply = await _jsPermissionApplyRepository.GetWaiting(userId).FirstOrDefaultAsync();
             Assert.NotNull(jsPermissionApply);
 
-            await jsPermissionApply.Pass();
+            Assert.True(await jsPermissionApply.Pass());
             _unitOfWork.RegisterDirty(jsPermissionApply);
             Assert.True(await _unitOfWork.CommitAsync());
+            await jsPermissionApply.Passed();
         }
 
         [Fact]
@@ -61,9 +62,10 @@ namespace CNBlogs.Apply.Domain.Tests
             var jsPermissionApply = await _jsPermissionApplyRepository.GetWaiting(userId).FirstOrDefaultAsync();
             Assert.NotNull(jsPermissionApply);
 
-            await jsPermissionApply.Deny("理由太简单了。");
+            Assert.True(jsPermissionApply.Deny("理由太简单了。"));
             _unitOfWork.RegisterDirty(jsPermissionApply);
             Assert.True(await _unitOfWork.CommitAsync());
+            await jsPermissionApply.Denied();
         }
 
         [Fact]
@@ -73,9 +75,10 @@ namespace CNBlogs.Apply.Domain.Tests
             var jsPermissionApply = await _jsPermissionApplyRepository.GetWaiting(userId).FirstOrDefaultAsync();
             Assert.NotNull(jsPermissionApply);
 
-            await jsPermissionApply.Lock();
+            Assert.True(jsPermissionApply.Lock());
             _unitOfWork.RegisterDirty(jsPermissionApply);
             Assert.True(await _unitOfWork.CommitAsync());
+            await jsPermissionApply.Locked();
         }
     }
 }
