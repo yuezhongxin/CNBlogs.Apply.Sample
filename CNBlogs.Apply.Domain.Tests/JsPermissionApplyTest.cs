@@ -32,12 +32,39 @@ namespace CNBlogs.Apply.Domain.Tests
         [Fact]
         public async Task ApplyTest()
         {
-            var userId = 1;
-            var verfiyResult = await _applyAuthenticationService.Verfiy(userId);
+            var user = new User
+            {
+                Alias = "xishuai",
+                DisplayName = "田园里的蟋蟀",
+                Email = "xishuai@cnblogs.com",
+                LoginName = "田园里的蟋蟀",
+                Id = 435188
+            };
+            var verfiyResult = await _applyAuthenticationService.Verfiy(user);
             Console.WriteLine(verfiyResult);
             Assert.Empty(verfiyResult);
 
-            var jsPermissionApply = new JsPermissionApply("我要申请JS权限", userId, "");
+            var jsPermissionApply = new JsPermissionApply("我要申请JS权限", user, "");
+            _unitOfWork.RegisterNew(jsPermissionApply);
+            Assert.True(await _unitOfWork.CommitAsync());
+        }
+
+        [Fact]
+        public async Task ApplyWithScriptTest()
+        {
+            var user = new User
+            {
+                Alias = "xishuai",
+                DisplayName = "田园里的蟋蟀",
+                Email = "xishuai@cnblogs.com",
+                LoginName = "田园里的蟋蟀",
+                Id = 435188
+            };
+            var verfiyResult = await _applyAuthenticationService.Verfiy(user);
+            Console.WriteLine(verfiyResult);
+            Assert.Empty(verfiyResult);
+
+            var jsPermissionApply = new JsPermissionApply("我要申请JS权限<script>console.log(111)</script>", user, "");
             _unitOfWork.RegisterNew(jsPermissionApply);
             Assert.True(await _unitOfWork.CommitAsync());
         }

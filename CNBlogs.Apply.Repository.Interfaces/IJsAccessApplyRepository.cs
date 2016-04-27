@@ -12,5 +12,7 @@ namespace CNBlogs.Apply.Repository.Interfaces
         IQueryable<JsPermissionApply> GetInvalid(int userId);
 
         IQueryable<JsPermissionApply> GetWaiting(int userId);
+
+        IQueryable<JsPermissionApply> GetWaiting();
     }
 }

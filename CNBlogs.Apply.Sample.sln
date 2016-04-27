@@ -45,6 +45,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNBlogs.Apply.Domain.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNBlogs.Apply.Infrastructure.IoC.Contracts", "CNBlogs.Apply.Infrastructure.IoC.Contracts\CNBlogs.Apply.Infrastructure.IoC.Contracts.csproj", "{A3FDF81B-42C8-43E1-BC6F-A57A89A8160C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNBlogs.Apply.Application.Tests", "CNBlogs.Apply.Application.Tests\CNBlogs.Apply.Application.Tests.csproj", "{EB63612B-A7C1-4788-9313-501B4AA68A72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNBlogs.Apply.Repository.Tests", "CNBlogs.Apply.Repository.Tests\CNBlogs.Apply.Repository.Tests.csproj", "{4462312A-C625-421D-B693-0082716F84F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +115,14 @@ Global
 		{A3FDF81B-42C8-43E1-BC6F-A57A89A8160C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3FDF81B-42C8-43E1-BC6F-A57A89A8160C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3FDF81B-42C8-43E1-BC6F-A57A89A8160C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB63612B-A7C1-4788-9313-501B4AA68A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB63612B-A7C1-4788-9313-501B4AA68A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB63612B-A7C1-4788-9313-501B4AA68A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB63612B-A7C1-4788-9313-501B4AA68A72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4462312A-C625-421D-B693-0082716F84F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4462312A-C625-421D-B693-0082716F84F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4462312A-C625-421D-B693-0082716F84F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4462312A-C625-421D-B693-0082716F84F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,5 +147,7 @@ Global
 		{95934A98-88B4-481F-AA89-CC953C204547} = {79EDDE04-83BE-48C2-8A6C-1E4E5976B98C}
 		{080D699B-A248-432E-A56D-CA1870F34ECC} = {8F99697A-B195-46F6-B299-56A1756AF90E}
 		{A3FDF81B-42C8-43E1-BC6F-A57A89A8160C} = {CE6A4AFB-E76C-4729-B4AB-62BE4C635BCA}
+		{EB63612B-A7C1-4788-9313-501B4AA68A72} = {8F99697A-B195-46F6-B299-56A1756AF90E}
+		{4462312A-C625-421D-B693-0082716F84F4} = {8F99697A-B195-46F6-B299-56A1756AF90E}
 	EndGlobalSection
 EndGlobal

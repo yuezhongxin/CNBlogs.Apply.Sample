@@ -8,19 +8,27 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Web;
+using CNBlogs.Apply.Domain.ValueObjects;
+using System.Net;
 
 namespace CNBlogs.Apply.ServiceAgent
 {
     public class UserService
     {
-        public static async Task<int> GetUserIdByDisplayName(string displayName)
-        {
-            return 1;
-        }
+        private static string userHost = "";
 
-        public static async Task<bool> IsHasBlog(int userId)
+        public static async Task<User> GetUserByLoginName(string loginName)
         {
-            return true;
+            using (var httpCilent = new HttpClient())
+            {
+                httpCilent.BaseAddress = new System.Uri(userHost);
+                var response = await httpCilent.GetAsync($"/users?loginName={Uri.EscapeDataString(loginName)}");
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    return await response.Content.ReadAsAsync<User>();
+                }
+                return null;
+            }
         }
     }
 }

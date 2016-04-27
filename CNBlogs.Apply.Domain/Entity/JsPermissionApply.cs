@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
+using System.Web;
 
 namespace CNBlogs.Apply.Domain
 {
@@ -19,7 +20,7 @@ namespace CNBlogs.Apply.Domain
         public JsPermissionApply()
         { }
 
-        public JsPermissionApply(string reason, int userId, string ip)
+        public JsPermissionApply(string reason, User user, string ip)
         {
             if (string.IsNullOrEmpty(reason))
             {
@@ -29,12 +30,16 @@ namespace CNBlogs.Apply.Domain
             {
                 throw new ArgumentException("申请内容超出最大长度");
             }
-            if (userId == 0)
+            if (user == null)
+            {
+                throw new ArgumentException("用户为null");
+            }
+            if (user.Id == 0)
             {
                 throw new ArgumentException("用户Id为0");
             }
-            this.Reason = reason;
-            this.UserId = userId;
+            this.Reason = HttpUtility.HtmlEncode(reason);
+            this.User = user;
             this.Ip = ip;
             this.Status = Status.Wait;
         }
@@ -43,7 +48,7 @@ namespace CNBlogs.Apply.Domain
 
         public string Reason { get; private set; }
 
-        public int UserId { get; private set; }
+        public virtual User User { get; private set; }
 
         public Status Status { get; private set; } = Status.Wait;
 
@@ -67,7 +72,7 @@ namespace CNBlogs.Apply.Domain
             this.ApprovedTime = DateTime.Now;
             this.ReplyContent = "恭喜您！您的JS权限申请已通过审批。";
             eventBus = IocContainer.Default.Resolve<IEventBus>();
-            await eventBus.Publish(new JsPermissionOpenedEvent() { UserId = this.UserId });
+            await eventBus.Publish(new JsPermissionOpenedEvent() { UserId = this.User.Id });
             return true;
         }
 
@@ -79,7 +84,7 @@ namespace CNBlogs.Apply.Domain
             }
             this.Status = Status.Deny;
             this.ApprovedTime = DateTime.Now;
-            this.ReplyContent = $"抱歉！您的JS权限申请没有被批准，{(string.IsNullOrEmpty(replyContent) ? "" : $"具体原因：{replyContent}<br/>")}麻烦您重新填写申请理由。";
+            this.ReplyContent = replyContent;
             return true;
         }
 
@@ -102,7 +107,7 @@ namespace CNBlogs.Apply.Domain
                 return;
             }
             eventBus = IocContainer.Default.Resolve<IEventBus>();
-            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请已批准", Content = this.ReplyContent, RecipientId = this.UserId });
+            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请已批准", Content = this.ReplyContent, RecipientId = this.User.Id });
         }
 
         public async Task Denied()
@@ -112,7 +117,7 @@ namespace CNBlogs.Apply.Domain
                 return;
             }
             eventBus = IocContainer.Default.Resolve<IEventBus>();
-            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请未通过审批", Content = this.ReplyContent, RecipientId = this.UserId });
+            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请未通过审批", Content = this.ReplyContent, RecipientId = this.User.Id });
         }
 
         public async Task Locked()
@@ -122,7 +127,7 @@ namespace CNBlogs.Apply.Domain
                 return;
             }
             eventBus = IocContainer.Default.Resolve<IEventBus>();
-            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请未通过审批", Content = this.ReplyContent, RecipientId = this.UserId });
+            await eventBus.Publish(new MessageSentEvent() { Title = "您的JS权限申请未通过审批", Content = this.ReplyContent, RecipientId = this.User.Id });
         }
     }
 }

@@ -61,6 +61,18 @@
     <Compile Include="Migrations\201604131417079_Set-ApprovedTime-null.Designer.cs">
       <DependentUpon>201604131417079_Set-ApprovedTime-null.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.cs" />
+    <Compile Include="Migrations\201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.Designer.cs">
+      <DependentUpon>201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604270658125_Add-LoginName-With-User.cs" />
+    <Compile Include="Migrations\201604270658125_Add-LoginName-With-User.Designer.cs">
+      <DependentUpon>201604270658125_Add-LoginName-With-User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604270717032_Add-User.cs" />
+    <Compile Include="Migrations\201604270717032_Add-User.Designer.cs">
+      <DependentUpon>201604270717032_Add-User.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApplyDbContext.cs" />
@@ -72,6 +84,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CNBlogs.Apply.Domain.ValueObjects\CNBlogs.Apply.Domain.ValueObjects.csproj">
+      <Project>{F3118A87-6041-4454-82CA-372309B5EAFA}</Project>
+      <Name>CNBlogs.Apply.Domain.ValueObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Domain\CNBlogs.Apply.Domain.csproj">
       <Project>{ffccaba9-b5b9-454a-899a-eb84f65b06ba}</Project>
       <Name>CNBlogs.Apply.Domain</Name>
@@ -87,6 +103,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604131417079_Set-ApprovedTime-null.resx">
       <DependentUpon>201604131417079_Set-ApprovedTime-null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.resx">
+      <DependentUpon>201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604270658125_Add-LoginName-With-User.resx">
+      <DependentUpon>201604270658125_Add-LoginName-With-User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604270717032_Add-User.resx">
+      <DependentUpon>201604270717032_Add-User.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

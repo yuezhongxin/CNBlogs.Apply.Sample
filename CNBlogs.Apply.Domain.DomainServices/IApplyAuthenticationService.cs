@@ -11,6 +11,6 @@ namespace CNBlogs.Apply.Domain.DomainServices
 {
     public interface IApplyAuthenticationService
     {
-        Task<string> Verfiy(int userId);
+        Task<string> Verfiy(User user);
     }
 }

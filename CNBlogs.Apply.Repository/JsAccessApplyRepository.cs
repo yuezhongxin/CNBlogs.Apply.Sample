@@ -18,12 +18,17 @@ namespace CNBlogs.Apply.Repository
 
         public IQueryable<JsPermissionApply> GetInvalid(int userId)
         {
-            return _entities.Where(x => x.UserId == userId && x.Status != Status.Deny && x.IsActive);
+            return _entities.Where(x => x.User.Id == userId && x.Status != Status.Deny && x.IsActive);
         }
 
         public IQueryable<JsPermissionApply> GetWaiting(int userId)
         {
-            return _entities.Where(x => x.UserId == userId && x.Status == Status.Wait && x.IsActive);
+            return _entities.Where(x => x.User.Id == userId && x.Status == Status.Wait && x.IsActive);
+        }
+
+        public IQueryable<JsPermissionApply> GetWaiting()
+        {
+            return _entities.Where(x => x.Status == Status.Wait && x.IsActive);
         }
     }
 }

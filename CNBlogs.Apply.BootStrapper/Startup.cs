@@ -11,6 +11,9 @@ using CNBlogs.Apply.Domain.DomainEvents;
 using CNBlogs.Apply.Domain.DomainServices;
 using CNBlogs.Apply.Infrastructure.IoC.Contracts;
 using Microsoft.Practices.Unity;
+using AutoMapper;
+using CNBlogs.Apply.Domain;
+using CNBlogs.Apply.Application.DTOs;
 
 namespace CNBlogs.Apply.BootStrapper
 {
@@ -31,6 +34,16 @@ namespace CNBlogs.Apply.BootStrapper
             container.RegisterType<IEventHandler<JsPermissionOpenedEvent>, JsPermissionOpenedEventHandler>();
 
             container.RegisterType<IApplyAuthenticationService, ApplyAuthenticationService>();
+
+            ConfigureMapper();
+        }
+
+        public static void ConfigureMapper()
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<JsPermissionApply, JsPermissionApplyDTO>();
+            });
         }
     }
 }

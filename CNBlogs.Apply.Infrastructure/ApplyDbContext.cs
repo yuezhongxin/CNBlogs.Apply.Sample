@@ -29,6 +29,14 @@ namespace CNBlogs.Apply.Infrastructure
                 .Property(x => x.ReplyContent).HasMaxLength(3000);
             modelBuilder.Entity<JsPermissionApply>()
                .Property(x => x.ApprovedTime).IsOptional();
+            modelBuilder.Entity<JsPermissionApply>()
+                .Property(x => x.User.LoginName).HasMaxLength(128);
+            modelBuilder.Entity<JsPermissionApply>()
+                .Property(x => x.User.DisplayName).HasMaxLength(128);
+            modelBuilder.Entity<JsPermissionApply>()
+               .Property(x => x.User.Alias).HasMaxLength(50);
+            modelBuilder.Entity<JsPermissionApply>()
+               .Property(x => x.User.Email).HasMaxLength(128);
 
             base.OnModelCreating(modelBuilder);
         }
