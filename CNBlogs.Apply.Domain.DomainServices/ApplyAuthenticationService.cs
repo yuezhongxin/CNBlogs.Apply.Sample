@@ -29,21 +29,18 @@ namespace CNBlogs.Apply.Domain.DomainServices
             {
                 return "必须先开通博客，才能申请JS权限！";
             }
-            var entity = await _jsPermissionApplyRepository.GetInvalid(user.Id).FirstOrDefaultAsync();
-            if (entity != null)
+            var applyStatus = await _jsPermissionApplyRepository.GetInvalid(user.Id).Select(x => x.Status).FirstOrDefaultAsync();
+            if (applyStatus == Status.Pass)
             {
-                if (entity.Status == Status.Pass)
-                {
-                    return "您的JS权限申请已开通，请勿重复申请！";
-                }
-                if (entity.Status == Status.Wait)
-                {
-                    return "您的JS权限申请正在处理中，请稍！";
-                }
-                if (entity.Status == Status.Lock)
-                {
-                    return "您暂时无法申请JS权限，请联系contact@cnblogs.com";
-                }
+                return "您的JS权限申请已开通，请勿重复申请！";
+            }
+            if (applyStatus == Status.Wait)
+            {
+                return "您的JS权限申请正在处理中，请稍！";
+            }
+            if (applyStatus == Status.Lock)
+            {
+                return "您暂时无法申请JS权限，请联系contact@cnblogs.com";
             }
             return string.Empty;
         }

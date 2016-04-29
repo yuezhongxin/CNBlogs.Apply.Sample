@@ -9,6 +9,11 @@ namespace CNBlogs.Apply.Domain.ValueObjects
     public enum Status
     {
         /// <summary>
+        /// 无
+        /// </summary>
+        None = 0,
+
+        /// <summary>
         /// 等待
         /// </summary>
         Wait = 1,
