@@ -1,0 +1,36 @@
+namespace CNBlogs.Apply.Infrastructure.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class DropBlogChangeApplys : DbMigration
+    {
+        public override void Up()
+        {
+            DropTable("dbo.BlogChangeApplys");
+        }
+        
+        public override void Down()
+        {
+            CreateTable(
+                "dbo.BlogChangeApplys",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Reason = c.String(nullable: false, maxLength: 3000),
+                        User_DisplayName = c.String(maxLength: 128),
+                        User_Alias = c.String(maxLength: 50),
+                        User_RegisterTime = c.DateTime(),
+                        User_Id = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
+                        Ip = c.String(maxLength: 50),
+                        ApplyTime = c.DateTime(nullable: false),
+                        ReplyContent = c.String(maxLength: 3000),
+                        ApprovedTime = c.DateTime(),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+        }
+    }
+}

@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBlogChangeApplyRepository.cs" />
+    <Compile Include="IJsPermissionApplyRepository.cs" />
+    <Compile Include="IApplyRepository.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="IJsAccessApplyRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,9 +51,6 @@
       <Project>{ffccaba9-b5b9-454a-899a-eb84f65b06ba}</Project>
       <Name>CNBlogs.Apply.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

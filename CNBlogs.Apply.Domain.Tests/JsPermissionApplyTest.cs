@@ -1,8 +1,8 @@
 ﻿using CNBlogs.Apply.Domain.DomainServices;
 using CNBlogs.Apply.Domain.ValueObjects;
 using CNBlogs.Apply.Infrastructure.Interfaces;
-using CNBlogs.Apply.Infrastructure.IoC.Contracts;
 using CNBlogs.Apply.Repository.Interfaces;
+using CNBlogs.Apply.Infrastructure.IoC.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -36,11 +36,9 @@ namespace CNBlogs.Apply.Domain.Tests
             {
                 Alias = "xishuai",
                 DisplayName = "田园里的蟋蟀",
-                Email = "xishuai@cnblogs.com",
-                LoginName = "田园里的蟋蟀",
                 Id = 435188
             };
-            var verfiyResult = await _applyAuthenticationService.Verfiy(user);
+            var verfiyResult = await _applyAuthenticationService.VerfiyForJsPermission(user);
             Console.WriteLine(verfiyResult);
             Assert.Empty(verfiyResult);
 
@@ -56,11 +54,9 @@ namespace CNBlogs.Apply.Domain.Tests
             {
                 Alias = "xishuai",
                 DisplayName = "田园里的蟋蟀",
-                Email = "xishuai@cnblogs.com",
-                LoginName = "田园里的蟋蟀",
                 Id = 435188
             };
-            var verfiyResult = await _applyAuthenticationService.Verfiy(user);
+            var verfiyResult = await _applyAuthenticationService.VerfiyForJsPermission(user);
             Console.WriteLine(verfiyResult);
             Assert.Empty(verfiyResult);
 
@@ -72,7 +68,7 @@ namespace CNBlogs.Apply.Domain.Tests
         [Fact]
         public async Task ProcessApply_WithPassTest()
         {
-            var userId = 1;
+            var userId = 435188;
             var jsPermissionApply = await _jsPermissionApplyRepository.GetWaiting(userId).FirstOrDefaultAsync();
             Assert.NotNull(jsPermissionApply);
 

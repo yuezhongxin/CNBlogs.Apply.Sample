@@ -13,15 +13,18 @@ namespace CNBlogs.Apply.Domain.DomainServices
     public class ApplyAuthenticationService : IApplyAuthenticationService
     {
         private IJsPermissionApplyRepository _jsPermissionApplyRepository;
+        private IBlogChangeApplyRepository _blogChangeApplyRepository;
 
-        public ApplyAuthenticationService(IJsPermissionApplyRepository jsPermissionApplyRepository)
+        public ApplyAuthenticationService(IJsPermissionApplyRepository jsPermissionApplyRepository,
+            IBlogChangeApplyRepository blogChangeApplyRepository)
         {
             _jsPermissionApplyRepository = jsPermissionApplyRepository;
+            _blogChangeApplyRepository = blogChangeApplyRepository;
         }
 
-        public async Task<string> Verfiy(User user)
+        public async Task<string> VerfiyForJsPermission(User user)
         {
-            if (user == null)
+            if (user == null || user?.Id == 0)
             {
                 return "未获取用户！";
             }
@@ -29,18 +32,60 @@ namespace CNBlogs.Apply.Domain.DomainServices
             {
                 return "必须先开通博客，才能申请JS权限！";
             }
-            var applyStatus = await _jsPermissionApplyRepository.GetInvalid(user.Id).Select(x => x.Status).FirstOrDefaultAsync();
-            if (applyStatus == Status.Pass)
+            var apply = await _jsPermissionApplyRepository.GetByUserId(user.Id).OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+            if (apply != null)
             {
-                return "您的JS权限申请已开通，请勿重复申请！";
+                var applyStatus = await apply.GetStatus(user.Alias);
+                switch (applyStatus)
+                {
+                    case Status.Wait:
+                        return "您的JS权限申请正在处理中，请耐心等待！";
+                    case Status.Pass:
+                        return "您的JS权限已开通，请勿重复申请！";
+                    case Status.Lock:
+                        return "您暂时无法申请JS权限，请联系contact@cnblogs.com";
+                    default:
+                        break;
+                }
             }
-            if (applyStatus == Status.Wait)
+            return string.Empty;
+        }
+
+        public async Task<string> VerfiyForBlogChange(User user, string targetBlogApp)
+        {
+            if (string.IsNullOrEmpty(targetBlogApp))
             {
-                return "您的JS权限申请正在处理中，请稍！";
+                return "博客地址不能为空";
             }
-            if (applyStatus == Status.Lock)
+            if (user == null || user?.Id == 0)
             {
-                return "您暂时无法申请JS权限，请联系contact@cnblogs.com";
+                return "未获取用户！";
+            }
+            if (string.IsNullOrEmpty(user.Alias) && user.Alias != user.Id.ToString())
+            {
+                return "必须先开通博客，才能更改博客地址！";
+            }
+            if (user.Alias.Equals(targetBlogApp))
+            {
+                return "修改博客地址不能和原地址相同！";
+            }
+            var apply = await _blogChangeApplyRepository.GetByUserId(user.Id).OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+            if (apply != null)
+            {
+                var applyStatus = apply.GetStatus();
+                switch (applyStatus)
+                {
+                    case Status.Wait:
+                        return "您的博客地址更改申请正在处理中，请耐心等待！";
+                    case Status.Lock:
+                        return "您暂时无法更改博客地址，请联系contact@cnblogs.com";
+                    default:
+                        break;
+                }
+            }
+            if (await BlogService.ExistBlogApp(targetBlogApp) || await _blogChangeApplyRepository.GetByTargetAliasWithWait(targetBlogApp).AnyAsync())
+            {
+                return "此博客地址已被使用，请更换！";
             }
             return string.Empty;
         }

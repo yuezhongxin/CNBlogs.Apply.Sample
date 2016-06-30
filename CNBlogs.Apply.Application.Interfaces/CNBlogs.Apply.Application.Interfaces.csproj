@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBlogChangeApplyService.cs" />
     <Compile Include="IJsPermissionApplyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -48,13 +49,14 @@
       <Project>{ac849ca2-49db-46bf-ac19-97a2343d9198}</Project>
       <Name>CNBlogs.Apply.Application.DTOs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CNBlogs.Apply.Domain.ValueObjects\CNBlogs.Apply.Domain.ValueObjects.csproj">
+      <Project>{F3118A87-6041-4454-82CA-372309B5EAFA}</Project>
+      <Name>CNBlogs.Apply.Domain.ValueObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Infrastructure\CNBlogs.Apply.Infrastructure.csproj">
       <Project>{bab5818f-8f03-4c05-867a-c9baaf3eea36}</Project>
       <Name>CNBlogs.Apply.Infrastructure</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

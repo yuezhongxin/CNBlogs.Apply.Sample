@@ -9,11 +9,12 @@ using CNBlogs.Apply.Infrastructure.Interfaces;
 using CNBlogs.Apply.Infrastructure;
 using System.Data.Entity;
 using EntityFramework.Extensions;
-using CNBlogs.Apply.Application.DTOs;
-using CNBlogs.Apply.Domain;
-using AutoMapper.QueryableExtensions;
 using CNBlogs.Apply.Domain.DomainServices;
+using CNBlogs.Apply.Domain;
+using CNBlogs.Apply.Application.DTOs;
+using AutoMapper.QueryableExtensions;
 using CNBlogs.Apply.ServiceAgent;
+using CNBlogs.Apply.Domain.ValueObjects;
 
 namespace CNBlogs.Apply.Application.Services
 {
@@ -32,16 +33,25 @@ namespace CNBlogs.Apply.Application.Services
             _jsPermissionApplyRepository = jsPermissionApplyRepository;
         }
 
-        public async Task<string> Verfiy(string userLoginName)
+        public async Task<Status> GetStatus(string userLoginName)
         {
             var user = await UserService.GetUserByLoginName(userLoginName);
-            return await _applyAuthenticationService.Verfiy(user);
+            if (user == null || user?.Id == 0)
+            {
+                return Status.None;
+            }
+            var apply = await _jsPermissionApplyRepository.GetByUserId(user.Id).OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+            if (apply == null)
+            {
+                return Status.None;
+            }
+            return await apply.GetStatus(user.Alias);
         }
 
         public async Task<SubmitResult> Apply(string reason, string userLoginName, string ip)
         {
             var user = await UserService.GetUserByLoginName(userLoginName);
-            var verfiyResult = await _applyAuthenticationService.Verfiy(user);
+            var verfiyResult = await _applyAuthenticationService.VerfiyForJsPermission(user);
             if (!string.IsNullOrEmpty(verfiyResult))
             {
                 return new SubmitResult { IsSucceed = false, Message = verfiyResult };

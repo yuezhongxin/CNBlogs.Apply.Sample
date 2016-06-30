@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CNBlogs.Apply.ServiceAgent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace CNBlogs.Apply.Domain.DomainEvents
     {
         public async Task Handle(JsPermissionOpenedEvent @event)
         {
-            //...
+            await BlogService.EnableJsPermission(@event.UserAlias);
         }
     }
 }

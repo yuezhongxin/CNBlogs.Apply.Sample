@@ -53,25 +53,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201604131411427_AddData.cs" />
-    <Compile Include="Migrations\201604131411427_AddData.Designer.cs">
-      <DependentUpon>201604131411427_AddData.cs</DependentUpon>
+    <Compile Include="Migrations\201606201016201_UpdateJsPermissionApply.cs" />
+    <Compile Include="Migrations\201606201016201_UpdateJsPermissionApply.Designer.cs">
+      <DependentUpon>201606201016201_UpdateJsPermissionApply.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604131417079_Set-ApprovedTime-null.cs" />
-    <Compile Include="Migrations\201604131417079_Set-ApprovedTime-null.Designer.cs">
-      <DependentUpon>201604131417079_Set-ApprovedTime-null.cs</DependentUpon>
+    <Compile Include="Migrations\201606201018318_AddBlogChangeApplys.cs" />
+    <Compile Include="Migrations\201606201018318_AddBlogChangeApplys.Designer.cs">
+      <DependentUpon>201606201018318_AddBlogChangeApplys.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.cs" />
-    <Compile Include="Migrations\201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.Designer.cs">
-      <DependentUpon>201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.cs</DependentUpon>
+    <Compile Include="Migrations\201606201019207_DropBlogChangeApplys.cs" />
+    <Compile Include="Migrations\201606201019207_DropBlogChangeApplys.Designer.cs">
+      <DependentUpon>201606201019207_DropBlogChangeApplys.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604270658125_Add-LoginName-With-User.cs" />
-    <Compile Include="Migrations\201604270658125_Add-LoginName-With-User.Designer.cs">
-      <DependentUpon>201604270658125_Add-LoginName-With-User.cs</DependentUpon>
+    <Compile Include="Migrations\201606280153170_AddBlogChangeApplys1.cs" />
+    <Compile Include="Migrations\201606280153170_AddBlogChangeApplys1.Designer.cs">
+      <DependentUpon>201606280153170_AddBlogChangeApplys1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604270717032_Add-User.cs" />
-    <Compile Include="Migrations\201604270717032_Add-User.Designer.cs">
-      <DependentUpon>201604270717032_Add-User.cs</DependentUpon>
+    <Compile Include="Migrations\201606300121393_RenameTargetAlias.cs" />
+    <Compile Include="Migrations\201606300121393_RenameTargetAlias.Designer.cs">
+      <DependentUpon>201606300121393_RenameTargetAlias.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CNBlogs.Apply.Domain.ValueObjects\CNBlogs.Apply.Domain.ValueObjects.csproj">
-      <Project>{F3118A87-6041-4454-82CA-372309B5EAFA}</Project>
+      <Project>{f3118a87-6041-4454-82ca-372309b5eafa}</Project>
       <Name>CNBlogs.Apply.Domain.ValueObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Domain\CNBlogs.Apply.Domain.csproj">
@@ -98,20 +98,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604131411427_AddData.resx">
-      <DependentUpon>201604131411427_AddData.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606201016201_UpdateJsPermissionApply.resx">
+      <DependentUpon>201606201016201_UpdateJsPermissionApply.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604131417079_Set-ApprovedTime-null.resx">
-      <DependentUpon>201604131417079_Set-ApprovedTime-null.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606201018318_AddBlogChangeApplys.resx">
+      <DependentUpon>201606201018318_AddBlogChangeApplys.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.resx">
-      <DependentUpon>201604270650479_Add-UserLoginName-UserDisplayName-UserAlias-UserEmail.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606201019207_DropBlogChangeApplys.resx">
+      <DependentUpon>201606201019207_DropBlogChangeApplys.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604270658125_Add-LoginName-With-User.resx">
-      <DependentUpon>201604270658125_Add-LoginName-With-User.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606280153170_AddBlogChangeApplys1.resx">
+      <DependentUpon>201606280153170_AddBlogChangeApplys1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604270717032_Add-User.resx">
-      <DependentUpon>201604270717032_Add-User.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606300121393_RenameTargetAlias.resx">
+      <DependentUpon>201606300121393_RenameTargetAlias.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

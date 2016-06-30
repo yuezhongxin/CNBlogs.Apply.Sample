@@ -11,13 +11,11 @@ namespace CNBlogs.Apply.Domain.ValueObjects
 {
     public class User
     {
-        public string LoginName { get; set; }
-
         public string DisplayName { get; set; }
 
-        public string Email { get; set; }
-
         public string Alias { get; set; }
+
+        public DateTime? RegisterTime { get; set; }
 
         [JsonProperty("SpaceUserID")]
         public int Id { get; set; }

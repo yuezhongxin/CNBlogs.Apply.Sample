@@ -34,6 +34,10 @@
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="CNBlogs.Infrastructure.IoC.Unity, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CNBlogs.Infrastructure.IoC.Unity.1.0.0.4\lib\net461\CNBlogs.Infrastructure.IoC.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -78,8 +82,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CNBlogs.Apply.Application.DTOs\CNBlogs.Apply.Application.DTOs.csproj">
-      <Project>{AC849CA2-49DB-46BF-AC19-97A2343D9198}</Project>
+      <Project>{ac849ca2-49db-46bf-ac19-97a2343d9198}</Project>
       <Name>CNBlogs.Apply.Application.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CNBlogs.Apply.Application.Interfaces\CNBlogs.Apply.Application.Interfaces.csproj">
+      <Project>{aa88f861-158e-4734-844a-df34c5ad84a1}</Project>
+      <Name>CNBlogs.Apply.Application.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CNBlogs.Apply.Application.Services\CNBlogs.Apply.Application.Services.csproj">
+      <Project>{87618b0d-a199-4de9-a2a8-d7e2ed0cb48a}</Project>
+      <Name>CNBlogs.Apply.Application.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Domain.DomainEvents\CNBlogs.Apply.Domain.DomainEvents.csproj">
       <Project>{95934a98-88b4-481f-aa89-cc953c204547}</Project>
@@ -90,7 +102,7 @@
       <Name>CNBlogs.Apply.Domain.DomainServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Domain\CNBlogs.Apply.Domain.csproj">
-      <Project>{FFCCABA9-B5B9-454A-899A-EB84F65B06BA}</Project>
+      <Project>{ffccaba9-b5b9-454a-899a-eb84f65b06ba}</Project>
       <Name>CNBlogs.Apply.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Infrastructure.Interfaces\CNBlogs.Apply.Infrastructure.Interfaces.csproj">
@@ -98,7 +110,7 @@
       <Name>CNBlogs.Apply.Infrastructure.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Infrastructure.IoC.Contracts\CNBlogs.Apply.Infrastructure.IoC.Contracts.csproj">
-      <Project>{a3fdf81b-42c8-43e1-bc6f-a57a89a8160c}</Project>
+      <Project>{A3FDF81B-42C8-43E1-BC6F-A57A89A8160C}</Project>
       <Name>CNBlogs.Apply.Infrastructure.IoC.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\CNBlogs.Apply.Infrastructure\CNBlogs.Apply.Infrastructure.csproj">

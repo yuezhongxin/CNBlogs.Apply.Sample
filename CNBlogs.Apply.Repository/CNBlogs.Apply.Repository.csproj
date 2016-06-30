@@ -49,9 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplyRepository.cs" />
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="BlogChangeApplyRepository.cs" />
+    <Compile Include="JsPermissionApplyRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="JsAccessApplyRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CNBlogs.Apply.Domain.ValueObjects\CNBlogs.Apply.Domain.ValueObjects.csproj">

@@ -1,4 +1,5 @@
 ﻿using CNBlogs.Apply.Application.DTOs;
+using CNBlogs.Apply.Domain.ValueObjects;
 using CNBlogs.Apply.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace CNBlogs.Apply.Application.Interfaces
 {
     public interface IJsPermissionApplyService
     {
-        Task<string> Verfiy(string userLoginName);
+        Task<Status> GetStatus(string userLoginName);
 
         Task<SubmitResult> Apply(string reason, string userLoginName, string ip);
 

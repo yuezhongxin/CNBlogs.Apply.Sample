@@ -20,12 +20,10 @@ namespace CNBlogs.Apply.Application.DTOs
 
         public int UserId { get; set; }
 
-        public string UserLoginName { get; set; }
-
         public string UserDisplayName { get; set; }
 
-        public string UserEmail { get; set; }
-
         public string UserAlias { get; set; }
+
+        public DateTime? UserRegisterTime { get; set; }
     }
 }

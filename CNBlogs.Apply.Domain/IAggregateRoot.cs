@@ -1,4 +1,7 @@
 ﻿namespace CNBlogs.Apply.Domain
 {
-    public interface IAggregateRoot : IEntity { }
+    public interface IAggregateRoot
+    {
+        int Id { get; }
+    }
 }

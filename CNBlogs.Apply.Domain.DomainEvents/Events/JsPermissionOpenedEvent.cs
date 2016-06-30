@@ -8,6 +8,6 @@ namespace CNBlogs.Apply.Domain.DomainEvents
 {
     public class JsPermissionOpenedEvent : IEvent
     {
-        public int UserId { get; set; }
+        public string UserAlias { get; set; }
     }
 }
