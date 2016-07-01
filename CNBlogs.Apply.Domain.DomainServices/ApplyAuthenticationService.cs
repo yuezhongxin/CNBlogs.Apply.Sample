@@ -1,4 +1,4 @@
-﻿using CNBlogs.Apply.Domain.ValueObjects;
+using CNBlogs.Apply.Domain.ValueObjects;
 using CNBlogs.Apply.Repository.Interfaces;
 using CNBlogs.Apply.ServiceAgent;
 using System;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CNBlogs.Apply.Domain.DomainServices
@@ -65,9 +66,18 @@ namespace CNBlogs.Apply.Domain.DomainServices
             {
                 return "必须先开通博客，才能更改博客地址！";
             }
+            targetBlogApp = targetBlogApp.Trim();
             if (user.Alias.Equals(targetBlogApp))
             {
                 return "修改博客地址不能和原地址相同！";
+            }
+            if (targetBlogApp.Length < 4)
+            {
+                return "博客地址至少4个字符！";
+            }
+            if (!Regex.IsMatch(targetBlogApp, @"^([0-9a-zA-Z_-])+$"))
+            {
+                return "博客地址只能使用英文、数字、-连字符、_下划线！";
             }
             var apply = await _blogChangeApplyRepository.GetByUserId(user.Id).OrderByDescending(x => x.Id).FirstOrDefaultAsync();
             if (apply != null)
