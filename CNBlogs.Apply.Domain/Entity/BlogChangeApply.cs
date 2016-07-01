@@ -1,7 +1,7 @@
-﻿using CNBlogs.Apply.Domain.DomainEvents;
+using CNBlogs.Apply.Domain.DomainEvents;
 using CNBlogs.Apply.Domain.ValueObjects;
 using CNBlogs.Apply.ServiceAgent;
-using CNBlogs.Apply.Infrastructure.IoC.Contracts;
+using CNBlogs.Infrastructure.IoC.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +23,6 @@ namespace CNBlogs.Apply.Domain
             if (string.IsNullOrEmpty(targetBlogApp))
             {
                 throw new ArgumentException("博客地址不能为空");
-            }
-            targetBlogApp = targetBlogApp.Trim();
-            if (targetBlogApp.Length < 4)
-            {
-                throw new ArgumentException("博客地址至少4个字符！");
-            }
-            if (!Regex.IsMatch(targetBlogApp, @"^([0-9a-zA-Z_-])+$"))
-            {
-                throw new ArgumentException("博客地址只能使用英文、数字、-连字符、_下划线！");
             }
             this.TargetBlogApp = targetBlogApp;
         }
